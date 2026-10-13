@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1020">
+  <title>SpeakFlow — Public Speaking Trainer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="SpeakFlow home">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13.5V10a2 2 0 0 1 2-2h1l2-3h6l2 3h1a2 2 0 0 1 2 2v3.5a2 2 0 0 1-2 2h-1.5l-2.3 3h-3.4l-2.3-3H6a2 2 0 0 1-2-2Z"/><path d="M9 12h6M12 9v6"/></svg></span>
+        <span>Speak<span class="brand-accent">Flow</span><small>PUBLIC SPEAKING LAB</small></span>
+      </a>
+      <div class="sidebar-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="practice"><span class="nav-icon">◉</span> Practice room</button>
+      <button class="nav-item" data-view="topics"><span class="nav-icon">▤</span> Topic library <span id="topicNavCount" class="nav-count">0</span></button>
+      <div class="sidebar-bottom">
+        <div class="sidebar-tip"><div class="tip-icon">✦</div><strong>Small steps, strong voice.</strong><p>Latihan sedikit setiap hari bisa membuatmu berbicara lebih percaya diri.</p></div>
+        <div class="profile-row"><div class="avatar">SF</div><div><strong>Personal workspace</strong><small>Data tersimpan di browser ini</small></div></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div><div class="eyebrow">YOUR PERSONAL SPEECH COACH</div><h1 id="pageTitle">Practice room</h1></div>
+        <div class="top-actions"><span class="status-pill"><span class="status-dot"></span> Ready to practice</span><button class="icon-button" id="helpBtn" title="Petunjuk">?</button></div>
+      </header>
+
+      <section id="practiceView" class="view">
+        <div class="welcome-row">
+          <div><p class="muted">Satu topik. Satu menit. Satu langkah lebih percaya diri.</p><h2>Make your voice <span class="gradient-text">count.</span></h2></div>
+          <div class="streak-chip"><span>✦</span><div><strong id="sessionCount">0</strong><small>SESI SELESAI</small></div></div>
+        </div>
+        <div class="practice-grid">
+          <section class="panel session-panel">
+            <div class="panel-head"><div><div class="eyebrow">CURRENT PROMPT</div><h3>Your topic</h3></div><button class="text-button" id="randomBtn">⤨ Random topic</button></div>
+            <div class="topic-card"><div class="topic-tag"><span class="tag-dot"></span><span id="topicCategory">Everyday life</span></div><h2 id="currentTopic">Is social media bringing us closer together?</h2><p id="topicHint">Give your opinion, explain why, and share one example.</p></div>
+            <div class="timer-header"><div><div class="eyebrow">SPEAKING TIMER</div><div class="timer-label">Time remaining</div></div><div class="timer-controls"><label for="durationSelect">Duration</label><select id="durationSelect"><option value="60">1 minute</option><option value="90">1.5 minutes</option><option value="120">2 minutes</option><option value="180">3 minutes</option><option value="300">5 minutes</option></select></div></div>
+            <div class="timer-wrap"><svg class="timer-ring" viewBox="0 0 220 220" aria-label="Timer"><circle class="ring-track" cx="110" cy="110" r="96"/><circle id="timerProgress" class="ring-progress" cx="110" cy="110" r="96"/></svg><div class="timer-center"><div id="timerDisplay">01:00</div><span id="timerState">READY WHEN YOU ARE</span></div></div>
+            <div class="timer-actions"><button class="primary-btn" id="startBtn"><span>▶</span> Start session</button><button class="secondary-btn" id="resetBtn">↻ Reset</button></div>
+            <p class="timer-note" id="timerNote">Pilih topik, tekan mulai, lalu mulai berbicara.</p>
+          </section>
+
+          <div class="right-column">
+            <section class="panel speech-panel">
+              <div class="panel-head"><div><div class="eyebrow">LIVE SPEECH CAPTURE</div><h3>Your words</h3></div><span id="micStatus" class="mic-pill"><span class="mic-dot"></span> Mic off</span></div>
+              <div class="transcript-box" id="transcriptBox"><div class="transcript-placeholder"><span class="mic-large">♩</span><strong>Your speech will appear here</strong><p>Aktifkan mikrofon dan mulai bicara. Kata-kata yang dikenali akan muncul di area ini.</p></div></div>
+              <div class="speech-actions"><button class="secondary-btn" id="micBtn">🎙 Enable microphone</button><button class="text-button" id="clearTranscriptBtn">Clear</button></div>
+              <div class="privacy-note">ⓘ Transkripsi diproses oleh fitur pengenalan suara browser. Hasilnya bisa berbeda sesuai browser dan bahasa.</div>
+            </section>
+            <section class="panel stats-panel">
+              <div class="panel-head"><div><div class="eyebrow">SESSION ANALYTICS</div><h3>Speaking stats</h3></div><span class="live-label"><span></span> LIVE</span></div>
+              <div class="stats-grid">
+                <div class="stat-card"><span class="stat-icon purple">Aa</span><span class="stat-label">Words spoken</span><strong id="wordCount">0</strong><small>Total kata terdeteksi</small></div>
+                <div class="stat-card"><span class="stat-icon blue">↗</span><span class="stat-label">Words / min</span><strong id="wpmCount">0</strong><small>Kecepatan bicara</small></div>
+                <div class="stat-card"><span class="stat-icon green">◷</span><span class="stat-label">Talk time</span><strong id="talkTime">00:00</strong><small>Waktu sesi berjalan</small></div>
+                <div class="stat-card"><span class="stat-icon orange">◎</span><span class="stat-label">Filler words</span><strong id="fillerCount">0</strong><small>Um, uh, like, hmm</small></div>
+              </div>
+              <div class="stats-footer"><span>Keep going — progress over perfection.</span><span id="completionLabel">0% completed</span></div><div class="mini-progress"><span id="completionBar"></span></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section id="topicsView" class="view hidden">
+        <div class="library-intro"><div><p class="muted">Bangun daftar latihan sesuai kebutuhanmu.</p><h2>Your topic library</h2><p class="muted">Tambah topik sendiri, ubah detailnya, atau hapus yang tidak dibutuhkan.</p></div><button class="primary-btn" id="addTopicBtn">＋ Add topic</button></div>
+        <section class="panel library-panel">
+          <div class="library-toolbar"><div class="search-wrap"><span>⌕</span><input id="topicSearch" type="search" placeholder="Cari topik atau kategori..."></div><span id="libraryCount" class="muted">0 topics</span></div>
+          <div id="topicList" class="topic-list"></div>
+        </section>
+      </section>
+
+      <footer class="footer"><span>SpeakFlow © <span id="year"></span></span><span>Made for your next great conversation.</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="topicModal">
+    <form class="modal" id="topicForm">
+      <div class="modal-head"><div><div class="eyebrow">TOPIC LIBRARY</div><h2 id="modalTitle">Add a topic</h2></div><button type="button" class="icon-button" id="closeModalBtn" aria-label="Tutup">×</button></div>
+      <input type="hidden" id="editTopicId">
+      <label for="topicTitleInput">Topic title <span>*</span></label><input id="topicTitleInput" maxlength="160" required placeholder="e.g. Should students work part-time?">
+      <label for="topicCategoryInput">Category</label><input id="topicCategoryInput" maxlength="50" placeholder="e.g. Education, Lifestyle, Technology">
+      <label for="topicHintInput">Speaking hint (optional)</label><textarea id="topicHintInput" maxlength="240" rows="3" placeholder="Give your opinion, explain why, and share an example."></textarea>
+      <div class="modal-actions"><button type="button" class="secondary-btn" id="cancelModalBtn">Cancel</button><button class="primary-btn" type="submit" id="saveTopicBtn">Save topic</button></div>
+    </form>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
